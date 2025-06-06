@@ -1,5 +1,8 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+let circleX = 0
+let circleY = 0
+let dotsInCircle = []
 //they move in a strught line, when hit the wall they change direction
 class Dot {
     constructor(initialX, initialY,initialVX,initialVY){
@@ -12,9 +15,29 @@ class Dot {
 }
 const dots = [];
 
+
+
+function circle(){
+ctx.beginPath()
+ctx.arc(circleX,circleY,200,0,Math.PI *2)
+ctx.fillStyle="rgb(255 0 0 / 50%)"
+ctx.fill();
+
+}
+
+
+
+
+
+
+
+
+
+
+
 function setup(){
 
-for(let i=0; i<30; i++){
+for(let i=0; i<40; i++){
    //to stop it being able to be zero eg not move 
   let zeroX = 0;
    while(zeroX==0){
@@ -54,7 +77,8 @@ ctx.fillRect(0,0,window.innerWidth,window.innerHeight)
 
 //floor to stop any issue with being floating point
 Math.floor(Math.random() *window.innerHeight)
-
+//clear dotsInCirle, so if leave no longer effected
+dotsInCircle = []
 for(let i=dots.length-1; i>=0; i--){
 
 
@@ -82,12 +106,36 @@ ctx.arc(dots[i].x,dots[i].y,4,0,Math.PI *2)
 ctx.fillStyle="black"
 ctx.fill();
 
+if(dots[i].x >  circleX -200 &&dots[i].x <  circleX +200 &&dots[i].y >  circleY -200 &&dots[i].y <  circleY +200 ){
+dotsInCircle.push(dots[i]);
+}
+dotsInCircle.forEach(inCircle=>{
+    for(let i=dotsInCircle.length-1; i>=0; i--){
+if((inCircle.x -dotsInCircle[i].x)<20 &&(inCircle.y -dotsInCircle[i].y)<20 ){
+    ctx.beginPath()
+    ctx.moveTo(inCircle.x,inCircle.y)
+    ctx.lineTo(dotsInCircle[i].x,dotsInCircle[i].y)
+    ctx.strokeStyle="black"
+    ctx.stroke()
+
+}
 }
 
+})
 
 
+}
+
+console.log(dotsInCircle)
+circle()
 
 setTimeout(draw,25)
 }
+
+addEventListener("mousemove",e=>{
+circleX = e.clientX
+circleY = e.clientY
+})
+
 
 setup();
