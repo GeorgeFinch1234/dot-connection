@@ -20,7 +20,7 @@ const dots = [];
 function circle(){
 ctx.beginPath()
 ctx.arc(circleX,circleY,200,0,Math.PI *2)
-ctx.fillStyle="rgb(255 0 0 / 50%)"
+ctx.fillStyle="rgb(0 0 0 / 1%)"
 ctx.fill();
 
 }
@@ -72,7 +72,7 @@ draw()
 function draw(){
      canvas.width = window.innerWidth ;
     canvas.height = window.innerHeight ;
-ctx.fillStyle = "white"
+ctx.fillStyle = "#0b0c10"
 ctx.fillRect(0,0,window.innerWidth,window.innerHeight)
 
 //floor to stop any issue with being floating point
@@ -102,8 +102,8 @@ if(dots[i].y >=window.innerHeight){
 }
 
 ctx.beginPath()
-ctx.arc(dots[i].x,dots[i].y,4,0,Math.PI *2)
-ctx.fillStyle="black"
+ctx.arc(dots[i].x,dots[i].y,1,0,Math.PI *2)
+ctx.fillStyle="#ffffff"
 ctx.fill();
 
 if(dots[i].x >  circleX -200 &&dots[i].x <  circleX +200 &&dots[i].y >  circleY -200 &&dots[i].y <  circleY +200 ){
@@ -115,7 +115,7 @@ if((inCircle.x -dotsInCircle[i].x)<20 &&(inCircle.y -dotsInCircle[i].y)<20 ){
     ctx.beginPath()
     ctx.moveTo(inCircle.x,inCircle.y)
     ctx.lineTo(dotsInCircle[i].x,dotsInCircle[i].y)
-    ctx.strokeStyle="black"
+    ctx.strokeStyle="rgba(255, 255, 255, 0.1)"
     ctx.stroke()
 
 }
