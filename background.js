@@ -111,7 +111,7 @@ dotsInCircle.push(dots[i]);
 }
 dotsInCircle.forEach(inCircle=>{
     for(let i=dotsInCircle.length-1; i>=0; i--){
-if((inCircle.x -dotsInCircle[i].x)<20 &&(inCircle.y -dotsInCircle[i].y)<20 ){
+if((inCircle.x -dotsInCircle[i].x)<20 &&(inCircle.y -dotsInCircle[i].y)<20 ||(inCircle.x -dotsInCircle[i].x)>20 &&(inCircle.y -dotsInCircle[i].y)>20){
     ctx.beginPath()
     ctx.moveTo(inCircle.x,inCircle.y)
     ctx.lineTo(dotsInCircle[i].x,dotsInCircle[i].y)
