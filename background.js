@@ -118,7 +118,19 @@ if((inCircle.x -dotsInCircle[i].x)<20 &&(inCircle.y -dotsInCircle[i].y)<20 ||(in
     ctx.strokeStyle="rgba(255, 255, 255, 0.1)"
     ctx.stroke()
 
+
 }
+if((circleX -dotsInCircle[i].x)<20 &&(circleY -dotsInCircle[i].y)<20 ||(circleX -dotsInCircle[i].x)>20 &&(circleY -dotsInCircle[i].y)>20){
+    ctx.beginPath()
+    ctx.moveTo(circleX,circleY)
+    ctx.lineTo(dotsInCircle[i].x,dotsInCircle[i].y)
+    ctx.strokeStyle="rgba(255, 255, 255, 0.1)"
+    ctx.stroke()
+
+
+}
+
+
 }
 
 })
