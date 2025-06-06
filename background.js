@@ -14,14 +14,14 @@ const dots = [];
 
 function setup(){
 
-for(let i=0; i<10; i++){
+for(let i=0; i<30; i++){
    //to stop it being able to be zero eg not move 
   let zeroX = 0;
    while(zeroX==0){
     //-0.5 so can go back
 //2 is speed bascially
 zeroX =  (Math.random()-0.5)*2
-console.log(zeroX)
+
    }
    let zeroY = 0;
    while(zeroY==0){
@@ -56,12 +56,27 @@ ctx.fillRect(0,0,window.innerWidth,window.innerHeight)
 Math.floor(Math.random() *window.innerHeight)
 
 for(let i=dots.length-1; i>=0; i--){
+
+
   //-0.5 so get positive and negs
   //changes 2 for movement speed
 dots[i].x += dots[i].VX
 dots[i].y += dots[i].VY
 
-console.log(dots[i].VY)
+//dont like this so it just changes direction
+if(dots[i].x <=0){
+    dots[i].VX =   (Math.random())*2
+}
+if(dots[i].x >=window.innerWidth){
+    dots[i].VX =   (Math.random()-1)*2
+}
+if(dots[i].y <=0){
+    dots[i].VY =  (Math.random())*2
+}
+if(dots[i].y >=window.innerHeight){
+    dots[i].VY =  (Math.random()-1)*2
+}
+
 ctx.beginPath()
 ctx.arc(dots[i].x,dots[i].y,4,0,Math.PI *2)
 ctx.fillStyle="black"
