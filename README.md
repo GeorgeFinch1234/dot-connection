@@ -1,6 +1,6 @@
 # Dot Connection
 A lightweight interactive animation built with the `canvas` tag. Randomly moving dots are connected with lines when they come close to each other around the mouse cursor. 
-## Table of conent
+## Table of content
 1. [Goal](#goal)
 2. [Technology](#technology)
 3. [Demo](#Demo)
