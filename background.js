@@ -3,6 +3,9 @@ const ctx = canvas.getContext("2d");
 let circleX = 0
 let circleY = 0
 let dotsInCircle = []
+let circleSize;
+let dotCount;
+let dots = [];
 //they move in a strught line, when hit the wall they change direction
 class Dot {
     constructor(initialX, initialY, initialVX, initialVY) {
@@ -13,7 +16,7 @@ class Dot {
         this.VY = initialVY
     }
 }
-const dots = [];
+
 
 
 
@@ -32,12 +35,10 @@ function circle() {
 
 
 
-
-
-
-function setup() {
-
-    for (let i = 0; i < 80; i++) {
+function createDots(){
+    dots = [];
+    dotCount = Math.floor(window.innerWidth / 15);
+    for (let i = 0; i < dotCount; i++) {
         //to stop it being able to be zero eg not move 
         let zeroX = 0;
         while (zeroX == 0) {
@@ -66,17 +67,23 @@ function setup() {
         )
 
     }
+}
+
+
+function setup() {
+canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    createDots()
     draw()
 }
 
 function draw() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    console.log(dots.length)
     ctx.fillStyle = "rgb(11,12,16)"
     ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     //floor to stop any issue with being floating point
-    Math.floor(Math.random() * window.innerHeight)
+    
     //clear dotsInCirle, so if leave no longer effected
     dotsInCircle = []
     for (let i = dots.length - 1; i >= 0; i--) {
@@ -109,35 +116,45 @@ function draw() {
         if (dots[i].x > circleX - 200 && dots[i].x < circleX + 200 && dots[i].y > circleY - 200 && dots[i].y < circleY + 200) {
             dotsInCircle.push(dots[i]);
         }
-        dotsInCircle.forEach(inCircle => {
 
 
-            for (let i = dotsInCircle.length - 1; i >= 0; i--) {
+
+//f as in first loop
+        for (let f = 0; f < dotsInCircle.length;f++) {
+
+//so only do a check once
+//s for second
+            for (let s = f; s <dotsInCircle.length; s++) {
 
 
-                let dx = inCircle.x - dotsInCircle[i].x;
-                let dy = inCircle.y - dotsInCircle[i].y;
+                let dx = dotsInCircle[f].x - dotsInCircle[s].x;
+                let dy = dotsInCircle[f].y - dotsInCircle[s].y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < 125) {
                     ctx.beginPath()
-                    ctx.moveTo(inCircle.x, inCircle.y)
-                    ctx.lineTo(dotsInCircle[i].x, dotsInCircle[i].y)
+                    ctx.moveTo(dotsInCircle[f].x, dotsInCircle[f].y)
+                    ctx.lineTo(dotsInCircle[s].x, dotsInCircle[s].y)
                     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)"
                     ctx.stroke()
                 }
                 // sqrt((x2 - x1)^2 + (y2 - y1)^2)
-                let mdx = circleX - dotsInCircle[i].x;
-                let mdy = circleY - dotsInCircle[i].y;
+                let mdx = circleX - dotsInCircle[s].x;
+                let mdy = circleY - dotsInCircle[s].y;
                 let mouseDistance = Math.sqrt(mdx * mdx + mdy * mdy);
 
                 if (mouseDistance < 125) {
                     ctx.beginPath()
                     ctx.moveTo(circleX, circleY)
-                    ctx.lineTo(dotsInCircle[i].x, dotsInCircle[i].y)
+                    ctx.lineTo(dotsInCircle[s].x, dotsInCircle[s].y)
                     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)"
                     ctx.stroke()
                 }
+
+
+
+
+
                 /*
                                 if (((inCircle.x - dotsInCircle[i].x) < 20  
                                 && (inCircle.x - dotsInCircle[i].x) > -20 )
@@ -168,7 +185,7 @@ function draw() {
 
             }
 
-        })
+        }
 
 
     }
@@ -183,6 +200,10 @@ addEventListener("mousemove", e => {
     circleX = e.clientX
     circleY = e.clientY
 })
-
-
+addEventListener("resize",()=>{
+canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+     createDots()
+    
+})
 setup();
