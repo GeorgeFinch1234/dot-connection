@@ -203,8 +203,8 @@ addEventListener("mousemove", e => {
 addEventListener("touchmove", (e) => {
     //to stop scrolling down screen.
     e.preventDefault()
-    circleX = e.clientX
-    circleY = e.clientY
+    circleX = e.e.touches[0].clientX
+    circleY = e.e.touches[0].clientY
 }, { passive: true })
 
 addEventListener("resize",()=>{
